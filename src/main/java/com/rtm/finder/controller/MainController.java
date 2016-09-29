@@ -104,6 +104,14 @@ public class MainController {
                         return false;
                     }
                 })
+                .filter(user -> {
+                    if (StringUtils.isEmpty(color) || user.getCarColors().contains(color)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .sorted()
                 .collect(Collectors.toList());
 
         return new ResultTable(users);

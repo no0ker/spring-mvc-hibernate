@@ -2,7 +2,9 @@ package com.rtm.finder.entity;
 
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -66,6 +68,12 @@ public class User {
 
     public Set<Car> getCar() {
         return cars;
+    }
+
+    public List<String> getCarColors() {
+        return cars.stream()
+                .map(s -> s.getColor())
+                .collect(Collectors.toList());
     }
 
     public void setCar(Set<Car> cars) {
