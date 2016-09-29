@@ -8,6 +8,8 @@ import com.rtm.finder.dao.UserDao;
 import com.rtm.finder.entity.Car;
 import com.rtm.finder.entity.City;
 import com.rtm.finder.entity.User;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,13 +27,15 @@ import java.util.stream.Collectors;
 public class MainController {
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     @Autowired
-    CityDao cityDao;
+    private CityDao cityDao;
 
     @Autowired
-    CarDao carDao;
+    private CarDao carDao;
+
+    private final Log LOG = LogFactory.getLog(MainController.class);
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap modelMap) {
@@ -40,32 +44,35 @@ public class MainController {
 
     @RequestMapping(value = "/init", method = RequestMethod.GET)
     public String init() {
-        City perm = new City("Perm");
-        City saratov = new City("Saratov");
-        cityDao.save(perm);
-        cityDao.save(saratov);
+        try {
+            City perm = new City("Perm");
+            City saratov = new City("Saratov");
+            cityDao.save(perm);
+            cityDao.save(saratov);
 
-        Car blue = new Car("Blue");
-        Car orange = new Car("Orange");
-        Car purple = new Car("Purple");
+            Car blue = new Car("Blue");
+            Car orange = new Car("Orange");
+            Car purple = new Car("Purple");
 
-        carDao.save(blue);
-        carDao.save(orange);
-        carDao.save(purple);
+            carDao.save(blue);
+            carDao.save(orange);
+            carDao.save(purple);
 
-        Set<Car> cars = new HashSet<Car>();
-        cars.add(blue);
-        cars.add(orange);
+            Set<Car> cars = new HashSet<Car>();
+            cars.add(blue);
+            cars.add(orange);
 
-        User user = new User("fname", "sname", perm, cars);
-        userDao.save(user);
+            User user = new User("fname", "sname", perm, cars);
+            userDao.save(user);
 
-        Set<Car> cars2 = new HashSet<Car>();
-        cars.add(purple);
+            Set<Car> cars2 = new HashSet<Car>();
+            cars.add(purple);
 
-        User user2 = new User("fname", "ssss", saratov, cars2);
-        userDao.save(user2);
-
+            User user2 = new User("fname", "ssss", saratov, cars2);
+            userDao.save(user2);
+        } catch (Exception e){
+            LOG.debug("hibernate's exception!", e);
+        }
         return "index";
     }
 
