@@ -20,4 +20,12 @@ public class ResultTable {
             }
         }
     }
+
+    public Set<Row> getRows() {
+        return rows;
+    }
+
+    public void setRows(Set<Row> rows) {
+        this.rows = rows;
+    }
 }

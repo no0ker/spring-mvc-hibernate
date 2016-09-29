@@ -10,8 +10,8 @@ import com.rtm.finder.entity.City;
 import com.rtm.finder.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,12 +48,13 @@ public class MainController {
 
         Set<Car> cars = new HashSet<Car>();
         cars.add(car);
+
         User user = new User("fname", "sname", city, cars);
         userDao.save(user);
 
         User user2 = new User("fname", "ssss", city, cars);
-        userDao.save(user);
-        
+        userDao.save(user2);
+
         return "index";
     }
 
@@ -63,22 +64,23 @@ public class MainController {
         return findUsers(message);
     }
 
+    @Transactional
     private ResultTable findUsers(Message message) {
         String fname = message.getFirstName();
 
         List<User> users = userDao.findAll()
                 .stream()
-                .filter(user -> {
-                    if (StringUtils.isEmpty(fname)) {
-                        return true;
-                    } else {
-                        if (fname.equals(user.getFirstName())) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                })
+//                .filter(user -> {
+//                    if (StringUtils.isEmpty(fname)) {
+//                        return true;
+//                    } else {
+//                        if (fname.equals(user.getFirstName())) {
+//                            return true;
+//                        } else {
+//                            return false;
+//                        }
+//                    }
+//                })
                 .collect(Collectors.toList());
 
         return new ResultTable(users);

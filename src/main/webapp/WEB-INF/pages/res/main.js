@@ -1,10 +1,10 @@
 function send_data()
 {
     var message = {};
-    message.firstName = $("#fn");
-    message.secondName = $("#sn");
-    message.city = $("#city");
-    message.color = $("#color");
+    message.firstName = $("#fn").val();
+    message.secondName = $("#sn").val();
+    message.city = $("#city").val();
+    message.color = $("#color").val();
 
     $.ajax({
         url: "/api/getUsers",
