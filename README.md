@@ -1,4 +1,4 @@
-1. change postgresql's connection properties in WEB-INF/mvc-dispatcher-servlet.xml
-  hibernate.connection.url
-  hibernate.connection.username
-  hibernate.connection.password
+1. Change postgresql's connection properties in WEB-INF/mvc-dispatcher-servlet.xml file. (hibernate.connection.url, hibernate.connection.username, hibernate.connection.password)
+2. mvn install
+3. deploy war file.
+
