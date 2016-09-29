@@ -62,7 +62,7 @@
 
     </dependencies>
     <build>
-        <finalName>springmvcdemo</finalName>
+        <finalName>spring-mvc-hibernate</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

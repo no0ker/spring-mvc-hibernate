@@ -3,7 +3,7 @@
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="/res/main.js"></script>
+    <script src="/spring-mvc-hibernate/res/main.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>HTML Document</title>
 </head>
