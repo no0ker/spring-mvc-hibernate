@@ -3,11 +3,16 @@ package com.rtm.finder.controller;
 import com.rtm.finder.dao.CarDao;
 import com.rtm.finder.dao.CityDao;
 import com.rtm.finder.dao.UserDao;
+import com.rtm.finder.entity.Car;
 import com.rtm.finder.entity.City;
+import com.rtm.finder.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class MainController {
@@ -23,12 +28,26 @@ public class MainController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
+        return "index";
+    }
 
-        cityDao.save(new City("Perm"));
+    @RequestMapping(value = "/init", method = RequestMethod.GET)
+    public String init() {
+        City city = new City("Perm");
+        cityDao.save(city);
 
+        Car car = new Car("Orange");
+        carDao.save(car);
+
+        Set<Car> cars = new HashSet<Car>();
+        cars.add(car);
+        User user = new User("fname", "sname", city, cars);
+
+        userDao.save(user);
 
         return "index";
     }
+
 
 //    @RequestMapping(value = "/admin/users", method = RequestMethod.GET)
 //    public String getUsers(ModelMap modelMap) {
