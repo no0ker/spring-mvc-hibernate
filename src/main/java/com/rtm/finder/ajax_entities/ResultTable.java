@@ -11,12 +11,19 @@ public class ResultTable {
     private Set<Row> rows = new HashSet<>();
 
     public ResultTable(List<User> users) {
-        for(User user : users){
-            for(Car car: user.getCar()){
+        for (User user : users) {
+            if (user.getCar() != null && !user.getCar().isEmpty()) {
+                for (Car car : user.getCar()) {
+                    rows.add(new Row(user.getFirstName(),
+                            user.getSecondName(),
+                            user.getCity().getName(),
+                            car.getColor()));
+                }
+            } else {
                 rows.add(new Row(user.getFirstName(),
                         user.getSecondName(),
                         user.getCity().getName(),
-                        car.getColor()));
+                        null));
             }
         }
     }

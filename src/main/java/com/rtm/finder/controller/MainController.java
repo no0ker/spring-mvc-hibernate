@@ -10,8 +10,8 @@ import com.rtm.finder.entity.City;
 import com.rtm.finder.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,19 +40,30 @@ public class MainController {
 
     @RequestMapping(value = "/init", method = RequestMethod.GET)
     public String init() {
-        City city = new City("Perm");
-        cityDao.save(city);
+        City perm = new City("Perm");
+        City saratov = new City("Saratov");
+        cityDao.save(perm);
+        cityDao.save(saratov);
 
-        Car car = new Car("Orange");
-        carDao.save(car);
+        Car blue = new Car("Blue");
+        Car orange = new Car("Orange");
+        Car purple = new Car("Purple");
+
+        carDao.save(blue);
+        carDao.save(orange);
+        carDao.save(purple);
 
         Set<Car> cars = new HashSet<Car>();
-        cars.add(car);
+        cars.add(blue);
+        cars.add(orange);
 
-        User user = new User("fname", "sname", city, cars);
+        User user = new User("fname", "sname", perm, cars);
         userDao.save(user);
 
-        User user2 = new User("fname", "ssss", city, cars);
+        Set<Car> cars2 = new HashSet<Car>();
+        cars.add(purple);
+
+        User user2 = new User("fname", "ssss", saratov, cars2);
         userDao.save(user2);
 
         return "index";
@@ -64,23 +75,35 @@ public class MainController {
         return findUsers(message);
     }
 
-    @Transactional
     private ResultTable findUsers(Message message) {
         String fname = message.getFirstName();
+        String sname = message.getSecondName();
+        String city = message.getCity();
+        String color = message.getColor();
 
         List<User> users = userDao.findAll()
                 .stream()
-//                .filter(user -> {
-//                    if (StringUtils.isEmpty(fname)) {
-//                        return true;
-//                    } else {
-//                        if (fname.equals(user.getFirstName())) {
-//                            return true;
-//                        } else {
-//                            return false;
-//                        }
-//                    }
-//                })
+                .filter(user -> {
+                    if (StringUtils.isEmpty(fname) || fname.equals(user.getFirstName())) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .filter(user -> {
+                    if (StringUtils.isEmpty(sname) || sname.equals(user.getSecondName())) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .filter(user -> {
+                    if (StringUtils.isEmpty(city) || city.equals(user.getCity().getName())) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
                 .collect(Collectors.toList());
 
         return new ResultTable(users);
