@@ -8,18 +8,12 @@
     <title>HTML Document</title>
 </head>
 <body>
-<p>
-    <b>
-        Этот текст будет полужирным,
-        <i>а этот - ещё и курсивным</i>
-        <%--${attr}--%>
-        <button id="3" onClick="send_data()">B3</button>
-    </b>
-</p>
-
-<div id="resultTable">
-
-</div>
-
+    <p>Введите критерии поиска</p>
+    <br>Имя: <input type="text" id="fn">
+    <br>Фамилия: <input type="text" id="sn">
+    <br>Город: <input type="text" id="city">
+    <br>Цвет машины: <input type="text" id="color">
+    <br><button onClick="send_data()">Поиск</button>
+    <br><div id="resultTable"/>
 </body>
 </html>
