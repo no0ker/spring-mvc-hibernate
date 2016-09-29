@@ -1,21 +1,30 @@
 package com.rtm.finder.controller;
 
+import com.rtm.finder.dao.CarDao;
+import com.rtm.finder.dao.CityDao;
+import com.rtm.finder.dao.UserDao;
+import com.rtm.finder.entity.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
 
 @Controller
 public class MainController {
 
+    @Autowired
+    UserDao userDao;
+
+    @Autowired
+    CityDao cityDao;
+
+    @Autowired
+    CarDao carDao;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
 
+        cityDao.save(new City("Perm"));
 
 
         return "index";

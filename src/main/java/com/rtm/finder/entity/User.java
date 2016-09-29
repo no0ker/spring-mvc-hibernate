@@ -2,6 +2,7 @@ package com.rtm.finder.entity;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -16,9 +17,17 @@ public class User {
     @Column(name = "secondName")
     private String secondName;
 
-    public User(String firstName, String secondName) {
+    @ManyToOne
+    private City city;
+
+    @OneToMany
+    private Set<Car> cars;
+
+    public User(String firstName, String secondName, City city, Set<Car> cars) {
         this.firstName = firstName;
         this.secondName = secondName;
+        this.city = city;
+        this.cars = cars;
     }
 
     public Long getId() {
@@ -43,5 +52,21 @@ public class User {
 
     public void setSecondName(String secondName) {
         this.secondName = secondName;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Set<Car> getCar() {
+        return cars;
+    }
+
+    public void setCar(Set<Car> cars) {
+        this.cars = cars;
     }
 }
