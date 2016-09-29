@@ -111,7 +111,6 @@ public class MainController {
                         return false;
                     }
                 })
-                .sorted()
                 .collect(Collectors.toList());
 
         return new ResultTable(users);

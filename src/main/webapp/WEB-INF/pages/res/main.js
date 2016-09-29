@@ -1,5 +1,7 @@
 function send_data()
 {
+    $('#resultTable').empty();
+
     var message = {};
     message.firstName = $("#fn").val();
     message.secondName = $("#sn").val();
@@ -43,6 +45,5 @@ function createTable(result){
     }
     resultHtml += '</table>';
 
-    $('#resultTable').empty();
     $('#resultTable').append(resultHtml);
 }
