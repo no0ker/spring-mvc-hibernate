@@ -23,6 +23,8 @@ public class User {
     @OneToMany
     private Set<Car> cars;
 
+    public User(){}
+
     public User(String firstName, String secondName, City city, Set<Car> cars) {
         this.firstName = firstName;
         this.secondName = secondName;

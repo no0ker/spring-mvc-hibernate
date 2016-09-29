@@ -12,6 +12,8 @@ public class Car {
     @Column(name = "color")
     String color;
 
+    public Car(){}
+
     public Car(String color) {
         this.color = color;
     }

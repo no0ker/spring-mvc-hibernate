@@ -13,6 +13,8 @@ public class City {
     @Column(name = "name")
     private String name;
 
+    public City(){}
+
     public City(String name) {
         this.name = name;
     }
