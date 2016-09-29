@@ -13,8 +13,7 @@ function send_data()
     });
 }
 
-function createTable(arg){
-    var result = JSON.parse(arg);
+function createTable(result){
     var rows = result.rows;
     var header = '<tr><td>first name</td><td>second name</td><td>city</td><td>car\'s color</tr></tr>';
 
